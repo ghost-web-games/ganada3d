@@ -1,5 +1,5 @@
-import THREE from "three";
-import CANNON, { Vec3 } from "cannon-es"
+import * as THREE from "three";
+import * as CANNON from "cannon-es"
 import { IObject } from "./iobject";
 
 
@@ -8,7 +8,7 @@ export class Player extends THREE.Mesh implements IObject{
     get Body() {
         return this.body
     }
-    constructor(radius: number, position: Vec3) {
+    constructor(radius: number, position: CANNON.Vec3) {
         const geometry = new THREE.SphereGeometry(radius, 30, 30)
         const material = new THREE.MeshStandardMaterial({ color: 0xcccccc })
         super(geometry, material)
@@ -19,7 +19,7 @@ export class Player extends THREE.Mesh implements IObject{
 }
 
 class PhysicsPlayer extends CANNON.Body {
-    constructor(radius: number, position: Vec3) {
+    constructor(radius: number, position: CANNON.Vec3) {
         const shape = new CANNON.Sphere(radius)
         const material = new CANNON.Material({ friction: 0.1, restitution: 0.5 })
 
