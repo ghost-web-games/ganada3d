@@ -5,8 +5,8 @@ import { Canvas } from "./canvas";
 
 export class Light extends THREE.DirectionalLight implements IViewer {
     constructor(canvas: Canvas, private camera: Camera) {
-        super(0xffffff)
-        this.position.set(0, 5, 0)
+        super(0xffffff, 1)
+        this.position.set(this.camera.position.x, 5, this.camera.position.y)
         this.castShadow = true
         canvas.RegisterViewer(this)
     }

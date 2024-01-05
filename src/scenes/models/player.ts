@@ -10,11 +10,14 @@ export class Player extends THREE.Mesh implements IObject{
     }
     constructor(radius: number, position: CANNON.Vec3) {
         const geometry = new THREE.SphereGeometry(radius, 30, 30)
-        const material = new THREE.MeshStandardMaterial({ color: 0xcccccc })
+        const material = new THREE.MeshStandardMaterial({ 
+            color: 0xcccccc ,
+        })
         super(geometry, material)
         this.body = new PhysicsPlayer(radius, position)
         this.castShadow = true
         this.receiveShadow = false
+        this.position.set(position.x, position.y, position.z)
     }
 }
 

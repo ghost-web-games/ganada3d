@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import { IViewer } from "../scenes/models/iviewer"
 
 

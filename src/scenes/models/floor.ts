@@ -10,7 +10,9 @@ export class Floor extends THREE.Mesh implements IObject{
     }
     constructor(width: number, height: number, depth: number, position: CANNON.Vec3) {
         const geometry = new THREE.BoxGeometry(width, height, depth)
-        const material = new THREE.MeshStandardMaterial({ color: 0xffffff })
+        const material = new THREE.MeshStandardMaterial({ 
+            color: 0xffffff,
+        })
 
         super(geometry, material)
         this.body = new PhysicsFloor(width, height, depth, position)

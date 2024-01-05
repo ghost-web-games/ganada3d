@@ -18,8 +18,8 @@ export default class App {
     }
 
     render() {
-        this.canvas.update()
         this.currentScene.play()
+        this.canvas.update()
         window.requestAnimationFrame(() => {
             this.render()
         })
