@@ -6,19 +6,19 @@ import { Light } from "../common/light";
 import { Camera } from "../common/camera";
 
 export class Game extends THREE.Scene implements IScene {
-    models: IObject[]
-    meshs: IObject[]
+    models: THREE.Mesh[]
+    meshs: THREE.Mesh[]
+    objs: IObject[]
 
-    constructor(private physics: Physics, light: Light,
-        lightTarget: THREE.Object3D, ...models: IObject[]) {
+    constructor(private physics: Physics, light: Light, ...objs: IObject[]) {
         super()
         const abmbient = new THREE.AmbientLight(0xffffff, 0.3)
-        this.add(abmbient, light, lightTarget, ...models)
-        this.models = models
-        this.meshs = models.filter((child: THREE.Mesh) => child.isMesh)
-        this.physics.add(
-            ...this.meshs.filter((model) => model.Body)
-        )
+        this.objs = objs
+        this.models = objs.map((child: IObject) => child.Meshs)
+        this.add(
+            abmbient, light, light.target, 
+            ...this.models)
+        this.meshs = this.models.filter((child: THREE.Mesh) => child.isMesh)
     }
 
     play() {
@@ -26,15 +26,15 @@ export class Game extends THREE.Scene implements IScene {
     }
 
     dispose() {
-        this.models.forEach((model) => {
+        this.objs.forEach((obj) => {
+            const model = obj.Meshs
             if(model.isMesh) {
                 model.geometry.dispose()
                 if (model.material instanceof Array) {
-                    model.material.map((m)=>m.dispose())
+                    model.material.map((m) => m.dispose())
                 } else {
                     model.material.dispose()
                 }
-                if (model.Body) this.physics.removeBody(model.Body)
                 this.remove(model)
             }
         })

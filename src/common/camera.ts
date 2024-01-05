@@ -1,12 +1,11 @@
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import { IViewer } from "../scenes/models/iviewer";
-import { IObject } from "../scenes/models/iobject";
+import { IPhysicsObject } from "../scenes/models/iobject";
 import { Canvas } from "./canvas";
 
 export class Camera extends THREE.PerspectiveCamera implements IViewer{
     //controls: OrbitControls
-    constructor(canvas: Canvas, private player: IObject) {
+    constructor(canvas: Canvas, private player: IPhysicsObject) {
         super(75, canvas.Width/ canvas.Height, 0.1, 100)
         this.position.set(0, 20, 15)
         this.rotation.x = -Math.PI / 3
@@ -21,7 +20,7 @@ export class Camera extends THREE.PerspectiveCamera implements IViewer{
 
     update() {
         //this.controls.update()
-        const position = this.player.position
+        const position = this.player.Position
         const mode = "far"
         switch (mode) {
             /*

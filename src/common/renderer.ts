@@ -2,10 +2,6 @@ import * as THREE from "three";
 import { Camera } from "./camera";
 import { Canvas } from "./canvas";
 import { IViewer } from "../scenes/models/iviewer";
-import { Floor } from "../scenes/models/floor";
-import { Vec3 } from "cannon-es";
-import { Player } from "../scenes/models/player";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 export class Renderer extends THREE.WebGLRenderer implements IViewer{
 

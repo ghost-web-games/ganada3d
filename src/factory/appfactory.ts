@@ -8,32 +8,51 @@ import { Camera } from "../common/camera";
 import { Renderer } from "../common/renderer";
 import { IScene } from "../scenes/models/iviewer";
 import { Light } from "../common/light";
+import { EventController } from "../event/eventctrl";
+import { Bird } from "../scenes/models/bird";
+import { Loader } from "../common/loader";
 
 export class AppFactory {
-    physics: Physics
+    physics = new Physics()
+    eventCtrl = new EventController()
+    canvas = new Canvas()
+    loader = new Loader()
+    
     game: Game
     player: Player
+    bird: Bird
     floor: Floor
-    canvas: Canvas
     camera: Camera
     light: Light
     renderer: Renderer
 
     currentScene: IScene
     constructor() {
-        this.player = new Player(0.3, new Vec3(0, 3, 9))
+        this.bird = new Bird(this.loader, this.eventCtrl)
+        this.player = new Player(this.eventCtrl, 0.3, new Vec3(0, 3, 9))
         this.floor = new Floor(30, 2, 20, new Vec3(0, 0, 0))
-        this.physics = new Physics()
 
-        this.canvas = new Canvas()
-        this.camera = new Camera(this.canvas, this.player)
+        this.physics.RegisterKeyControl(this.bird, this.player)
+        this.physics.add(this.player, this.bird, this.floor)
+
+        this.camera = new Camera(this.canvas, this.bird)
         this.light = new Light(this.canvas, this.camera)
 
-        this.game = new Game(this.physics, this.light, this.light.target,
+        this.game = new Game(this.physics, this.light, 
             this.player, this.floor)
         this.currentScene = this.game
         this.renderer = new Renderer(this.camera, this.game, this.canvas)
     }
+
+    async GltfLoad() {
+        return await Promise.all([
+            this.bird.Loader(3, new Vec3(0, 3, 0)),
+        ])
+    }
+    InitScene() {
+        this.game.add(this.bird.Meshs)
+    }
     get Canvas(): Canvas { return this.canvas }
     get Scene(): IScene { return this.currentScene }
+    get EventCtrl(): EventController { return this.eventCtrl }
 }
