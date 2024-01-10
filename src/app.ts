@@ -28,9 +28,8 @@ export default class App {
                 case "ArrowDown": this.eventCtrl.OnKeyDownEvent(new KeyDown); break;
                 case "ArrowLeft": this.eventCtrl.OnKeyDownEvent(new KeyLeft); break;
                 case "ArrowRight": this.eventCtrl.OnKeyDownEvent(new KeyRight); break;
-                case "Space": this.eventCtrl.OnKeyDownEvent(new KeySpace); break;
             }
-            console.log("down", e.code)
+            if (e.key == ' ') this.eventCtrl.OnKeyDownEvent(new KeySpace)
         })
         window.addEventListener("keyup", (e) => {
             switch (e.code) {
@@ -40,13 +39,13 @@ export default class App {
                 case "ArrowRight": this.eventCtrl.OnKeyUpEvent(new KeyRight); break;
                 case "Space": this.eventCtrl.OnKeyUpEvent(new KeySpace); break;
             }
-            console.log("up", e.code)
         })
     }
 
     render() {
         this.currentScene.play()
         this.canvas.update()
+        //this.factory.phydebugger.update()
         window.requestAnimationFrame(() => {
             this.render()
         })

@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import * as CANNON from "cannon-es"
 import { IObject, IPhysicsObject } from "./iobject";
+import { Gui } from "../../factory/appfactory"
 
 
 export class Floor extends THREE.Mesh implements IObject, IPhysicsObject {
@@ -16,8 +17,9 @@ export class Floor extends THREE.Mesh implements IObject, IPhysicsObject {
     constructor(width: number, height: number, depth: number, position: CANNON.Vec3) {
         const geometry = new THREE.BoxGeometry(width, height, depth)
         const material = new THREE.MeshStandardMaterial({ 
-            color: 0xffffff,
+            color: 0xffcc66,
         })
+        Gui.addColor(material, "color")
 
         super(geometry, material)
         this.body = new PhysicsFloor(width, height, depth, position)

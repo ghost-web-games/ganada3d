@@ -13,10 +13,14 @@ export class Game extends THREE.Scene implements IScene {
     constructor(private physics: Physics, light: Light, ...objs: IObject[]) {
         super()
         const abmbient = new THREE.AmbientLight(0xffffff, 0.3)
+        const hemispherelight = new THREE.HemisphereLight(0xffffff, 0x333333)
+        hemispherelight.position.set(0, 20, 10)
         this.objs = objs
         this.models = objs.map((child: IObject) => child.Meshs)
         this.add(
-            abmbient, light, light.target, 
+            abmbient, 
+            hemispherelight, //new THREE.HemisphereLightHelper(hemispherelight, 5),
+            light, light.target, //new THREE.DirectionalLightHelper(light, 5),
             ...this.models)
         this.meshs = this.models.filter((child: THREE.Mesh) => child.isMesh)
     }

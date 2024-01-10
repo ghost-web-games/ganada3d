@@ -7,9 +7,11 @@ export class Renderer extends THREE.WebGLRenderer implements IViewer{
 
     constructor(private camera: Camera, private scene: THREE.Scene, private canvas: Canvas) {
         super({ alpha: true, antialias: true, canvas: canvas.Canvas })
-        this.setClearColor(0x333333, 1)
+        this.setClearColor(0x66ccff, 1)
         this.setSize(canvas.Width, canvas.Height)
         this.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+        THREE.ColorManagement.enabled = true
+        this.outputColorSpace = THREE.SRGBColorSpace
         this.shadowMap.enabled = true
         this.shadowMap.type = THREE.PCFSoftShadowMap
         canvas.RegisterViewer(this)

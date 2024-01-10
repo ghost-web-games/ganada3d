@@ -16,11 +16,11 @@ export class KeyNone implements IKeyCommand{
 
 export class KeySpace implements IKeyCommand{
     ExecuteKeyUp(): CANNON.Vec3 {
-        return new CANNON.Vec3(0, 50, 0)
+        return new CANNON.Vec3(0, 5, 0)
     }
 
     ExecuteKeyDown(): CANNON.Vec3 {
-        return new CANNON.Vec3(0, 50, 0)
+        return new CANNON.Vec3(0, 5, 0)
     }
 }
 export class KeyUp implements IKeyCommand{

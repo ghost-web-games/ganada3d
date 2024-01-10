@@ -11,7 +11,7 @@ export class Physics extends CANNON.World {
         super()
 
         this.models = this.keyCtrlModels = []
-        this.gravity = new CANNON.Vec3(0, -9.82, 0)
+        this.gravity = new CANNON.Vec3(0, -12.82, 0)
         this.broadphase = new CANNON.SAPBroadphase(this)
         this.allowSleep = true
         this.addEventListener('postStep', () => {
